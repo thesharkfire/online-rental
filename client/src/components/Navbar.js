@@ -5,6 +5,7 @@ import Logout from './Logout';
 //import Cart from
 
 import { useSelector } from 'react-redux';
+import NewHome from '../pages/NewHome';
 
 const Navbar = () => {
 
@@ -34,6 +35,11 @@ const Navbar = () => {
         <li>
           <Logout />
         </li>
+
+        <li>
+          <Link to="/newhome">New Home</Link>
+        </li>
+        
         { userEmail && (
         <li>
           <div>{userEmail}</div>

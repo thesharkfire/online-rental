@@ -1,0 +1,60 @@
+
+//ProductModel.js
+const mongoose = require("mongoose");
+
+const ProductSchema = new mongoose.Schema(
+  {
+    title: {type: String, required: true},//type: Array
+    desc: {type: String, required: true},
+    img: {type: String, required: true},
+    categories:{type:[String], required:true},
+    authors:{type:[String], required:true},
+    price:{type:Number, required:true},
+    available:{type: Boolean, default:true}
+  },
+  {timestamps: true}
+)
+
+module.exports = mongoose.model("Product", ProductSchema)
+
+//Cart Order
+
+////Frontend
+
+//Cart slice
+const cartSlice = createSlice({
+name: "cart",
+initialState: {
+  products: [],
+  quantity: 0,
+  total: 0,
+},
+reducers:{
+  addProduct:(state, action) =>{
+    state.quantity += 1
+    state.products.push(action.payload.product)
+    state.total += action.payload.price
+  }
+}
+
+ })
+
+ export const{addProduct} = cartSlice.actions
+export default cartSlice.reducer
+
+import cartReducer from "./cartRedux"
+
+export default configureStore({
+  reducer: {
+    cart: cartReducer,
+  },
+})
+
+
+//Category item
+const CategoryItem = ({item}) =>{
+  return(
+    <Button>SHOP NOW<Button>
+  );
+};
+//export default CategoryItem

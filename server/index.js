@@ -3,6 +3,7 @@ const  express = require('express');
 /* Routes */
 const workoutRoutes = require('./routes/Workouts.js')
 const userRoutes = require('./routes/userRoutes.js')
+const productRoutes = require('./routes/productRoutes.js')
 
 /* Imports*/
 const mongoose = require('mongoose')
@@ -19,12 +20,24 @@ app.use(cors({
     sameSite: 'none'
    }));
 app.use(express.json())
-  
+app.use(express.static('public'))
+
+
+app.get('/api/images/:id', async (req, res) => {
+    const { id } = req.params;
+    const product = await Product.findById(id);
+    if (!product || !product.image) {
+      return res.status(404).send('Image not found');
+    }
+    res.set('Content-Type', product.image.contentType);
+    res.send(product.image.data);
+  });
 
 
 /*Route setup */
 app.use('/api/workouts', workoutRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api/products', productRoutes)
 
 
 
@@ -38,4 +51,3 @@ mongoose.connect(process.env.CONNECTION_URL)
     app.listen(process.env.PORT, () =>{console.log('Listening on port', process.env.PORT)})
 })
  .catch((error)=>console.log(error))
-

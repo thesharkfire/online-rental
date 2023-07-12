@@ -7,6 +7,8 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Navbar from './components/Navbar';
 import SearchBar from './pages/SearchBar';
+import NewHome from './pages/NewHome';
+import ProductPage from './components/ProductPage';
 import { useEffect } from 'react';
 import { login } from './redux/authSlice';
 import { useDispatch } from 'react-redux';
@@ -14,7 +16,7 @@ import { useDispatch } from 'react-redux';
 function App() {
   const dispatch = useDispatch();
 
- 
+
   useEffect(() => {
     //Turn this into check auth component
     // Load the authentication details from local storage when the component mounts
@@ -24,14 +26,14 @@ function App() {
     }
   }, [dispatch]);
 
-  
+
 
   return (
 
     <div className="App">
 
-      
-    
+
+
       <BrowserRouter>
 
         <Navbar />
@@ -42,12 +44,13 @@ function App() {
           <Route path = '/signup' element = {<Signup/>} />
           <Route path = '/login' element = {<Login />} />
           <Route path = '/searchbar' element = {<SearchBar />} />
-          
+          <Route path = '/products/:productId' element ={<ProductPage/>}> </Route>
+          <Route path = '/newhome' element={<NewHome/>}> </Route>
 
-        </Routes>   
+        </Routes>
 
       </BrowserRouter>
-      
+
 
     </div>
   );

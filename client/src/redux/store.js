@@ -5,6 +5,8 @@ import storage from 'redux-persist/lib/storage';
 import counterReducer from './counter';
 import WorkoutsReducer from './WorkoutsSlice';
 import authReducer from './authSlice';
+import productReducer from './productSlice'
+//import cartReducer from './cartSlice'
 
 const persistConfig = {
   key: 'root',
@@ -15,6 +17,8 @@ const rootReducer = combineReducers({
   counter: counterReducer,
   workouts: WorkoutsReducer,
   auth: authReducer,
+  products: productReducer,
+ // cart: cartSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
