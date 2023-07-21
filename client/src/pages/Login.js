@@ -22,7 +22,7 @@ const Login = () => {
     setIsLoading(true)
 	  setError(null)
 
-    
+
     const response = await fetch('http://localhost:5000/api/user/login/',{
       method: 'POST',
       body: JSON.stringify({email, password}),
@@ -41,9 +41,9 @@ const Login = () => {
 
     if(response.ok){
 			  dispatch(login(json));
-			  localStorage.setItem('auth', JSON.stringify(json));
+			  localStorage.setItem('auth', JSON.stringify(...json, {userId: json.userId}));//just (json), change back
 			  setIsLoading(false)
-			         
+
 
       }
 
@@ -58,12 +58,12 @@ const Login = () => {
   };
 
   /**
-   * 
+   *
    */
 
   return (
-   
-    <form onSubmit={handleFormSubmit}>       
+
+    <form onSubmit={handleFormSubmit}>
         <h3>Log In</h3>
 
       <div>
@@ -96,10 +96,10 @@ const Login = () => {
       <button disabled ={isLoading} type="submit">Log In</button>
       {error && <div> {error}</div>}
     </form>
-   
 
-    
-   
+
+
+
   );
 };
 

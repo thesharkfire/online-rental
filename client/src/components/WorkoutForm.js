@@ -64,6 +64,7 @@ const WorkoutForm = () => {
           type="text"
           id="title"
           value={title}
+          placeholder = "Title"
           onChange={(event) => setTitle(event.target.value)}
         />
       </div>
@@ -73,6 +74,7 @@ const WorkoutForm = () => {
           type="number"
           id="load"
           value={load}
+          placeholder = "Load"
           onChange={(event) => setLoad(event.target.value)}
         />
       </div>
@@ -82,6 +84,7 @@ const WorkoutForm = () => {
           type="number"
           id="reps"
           value={reps}
+          placeholder = "Reps"
           onChange={(event) => setReps(event.target.value)}
         />
       </div>

@@ -1,0 +1,16 @@
+ClientID = AXNPSqgCNrtMVEdwhigyao_WPLGiQnKoA76024YaUa-VifCsNefmcquda1GPvUARZtZ511Lrs3VgSBnf
+
+
+
+Sandbox account
+Email = sb-47gfoq16438089@personal.example.com
+Password = w!7bPyk:
+
+
+
+<Paypal
+toPay ={subtotal}
+onSuccess = {transactionSuccess}
+transactionError={handleError}
+transactionCanceled= {transactionCanceled}
+/>

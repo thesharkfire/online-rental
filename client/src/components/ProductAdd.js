@@ -6,10 +6,13 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const ProductAdd = () => {
   const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
+  const [author, setAuthor] = useState([]);
+  const [newAuthor, setNewAuthor] = useState('');
   const [desc, setDesc] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState(null);
+  const [category, setCategory] = useState([]);
+  const [newCategory, setNewCategory] = useState('');
   const[error, setError] = useState(null)
 
   const dispatch = useDispatch();
@@ -27,11 +30,16 @@ const ProductAdd = () => {
 
           const formData = new FormData();
           formData.append('title', title);
-          formData.append('author', author);
+          author.forEach(auth => {
+            formData.append('author[]', auth);
+          });
           formData.append('desc', desc);
           formData.append('price', price);
           formData.append('image', image);
-          
+          category.forEach(cat => {
+            formData.append('category[]', cat);
+          });
+
           const response = await fetch('http://localhost:5000/api/products/',{
             method: 'POST',
             body: formData,
@@ -50,7 +58,7 @@ const ProductAdd = () => {
           if(response.ok){
             dispatch(createProduct(json))
             setTitle('')
-            setAuthor('')
+            setAuthor([])
             setDesc('')
             setImage(null);
             setError(null)
@@ -61,8 +69,33 @@ const ProductAdd = () => {
 
         }
 
+        const handleCategoryChange = (event) => {
+          const options = event.target.options;
+          const selectedOptions = [];
+          for (let i = 0; i < options.length; i++) {
+            if (options[i].selected) {
+              selectedOptions.push(options[i].value);
+            }
+          }
+          setCategory(selectedOptions);
+        }
+
+        const handleAddCategory = () => {
+          if (newCategory && !category.includes(newCategory)) {
+            setCategory([...category, newCategory]);
+            setNewCategory('');
+          }
+        }
+
+        const handleAddAuthor = () => {
+          if (newAuthor && !author.includes(newAuthor)) {
+            setAuthor([...author, newAuthor]);
+            setNewAuthor('');
+          }
+        }
+
   return (
-    <form onSubmit={handleSubmit} enctype= "multipart/form-data"> 
+    <form onSubmit={handleSubmit} enctype= "multipart/form-data">
 
       <h3>Add a New product</h3>
 
@@ -74,17 +107,23 @@ const ProductAdd = () => {
           type="text"
           id="title"
           value={title}
+          placeholder = "Title"
           onChange={(event) => setTitle(event.target.value)}
         />
       </div>
       <div>
         <label htmlFor="author">Author:</label>
-        <input
-          type="text"
-          id="author"
-          value={author}
-          onChange={(event) => setAuthor(event.target.value)}
-        />
+        <ul>
+           {author.map(auth => (
+             <li key={auth}>{auth}</li>
+           ))}
+         </ul>
+         <input
+           type="text"
+           value={newAuthor}
+           onChange={(event) => setNewAuthor(event.target.value)}
+         />
+         <button type="button" onClick={handleAddAuthor}>Add Author</button>
       </div>
       <div>
         <label htmlFor="desc">Description:</label>
@@ -92,6 +131,7 @@ const ProductAdd = () => {
           type="text"
           id="desc"
           value={desc}
+          placeholder = "Description"
           onChange={(event) => setDesc(event.target.value)}
         />
       </div>
@@ -101,10 +141,25 @@ const ProductAdd = () => {
         type="number"
         id="price"
         value={price}
+        placeholder = "Price"
         onChange={(event) => setPrice(event.target.value)}
       />
       </div>
-    
+
+      <div>
+        <label htmlFor="category">Category:</label>
+        <select multiple={true} value={category} onChange={handleCategoryChange}>
+           {category.map(cat => (
+             <option key={cat} value={cat}>{cat}</option>
+           ))}
+         </select>
+         <input
+           type="text"
+           value={newCategory}
+           onChange={(event) => setNewCategory(event.target.value)}
+         />
+         <button type="button" onClick={handleAddCategory}>Add Category</button>
+      </div>
 
     <div>
       <label htmlFor="img">Image</label>

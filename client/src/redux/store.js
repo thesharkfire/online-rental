@@ -6,7 +6,8 @@ import counterReducer from './counter';
 import WorkoutsReducer from './WorkoutsSlice';
 import authReducer from './authSlice';
 import productReducer from './productSlice'
-//import cartReducer from './cartSlice'
+import cartReducer from './cartSlice'
+import searchResultsReducer from './searchResultsSlice'
 
 const persistConfig = {
   key: 'root',
@@ -18,6 +19,9 @@ const rootReducer = combineReducers({
   workouts: WorkoutsReducer,
   auth: authReducer,
   products: productReducer,
+  cart:cartReducer,
+  searchResults: searchResultsReducer
+
  // cart: cartSlice
 });
 

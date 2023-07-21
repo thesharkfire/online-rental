@@ -9,6 +9,8 @@ import Navbar from './components/Navbar';
 import SearchBar from './pages/SearchBar';
 import NewHome from './pages/NewHome';
 import ProductPage from './components/ProductPage';
+import Cart from './pages/Cart';
+import Results from './pages/Results';
 import { useEffect } from 'react';
 import { login } from './redux/authSlice';
 import { useDispatch } from 'react-redux';
@@ -46,6 +48,9 @@ function App() {
           <Route path = '/searchbar' element = {<SearchBar />} />
           <Route path = '/products/:productId' element ={<ProductPage/>}> </Route>
           <Route path = '/newhome' element={<NewHome/>}> </Route>
+          <Route path = '/cart' element={<Cart/>}> </Route>
+          <Route path = '/results' element={<Results />}> </Route>
+
 
         </Routes>
 

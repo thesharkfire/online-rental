@@ -21,11 +21,15 @@ const productSchema = new Schema({
         //required: true
     },
 
-    img: {
+    category: [{
         type: String,
         //required: true
-    },
+    }],
 
+    image: {
+        type: String,
+        //required: true
+    }
 
  }, {timestamps: true})
 

@@ -39,12 +39,20 @@ const Navbar = () => {
         <li>
           <Link to="/newhome">New Home</Link>
         </li>
-        
+
         { userEmail && (
         <li>
           <div>{userEmail}</div>
         </li>
-      )}{/*
+      )}
+
+      <li>
+        <Link to="/cart">Cart</Link>
+      </li>
+
+
+
+      {/*
         <li>
           <div>Cart</div> {/*Badge Content from material ui default 4 items/}
         </li>

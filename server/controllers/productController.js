@@ -17,9 +17,9 @@ const mongoose = require('mongoose')
 
 const createProduct = async (req, res) => {
   const { title, author, price, desc } = req.body;
-  const image = `/uploads/${req.file.filename}`;
+  const image = req.file;;
   try {
-    const product = await Product.create({ title, price, image, desc, author });
+    const product = await Product.create({ title, price, image: `/uploads/${image.filename}`, desc, author });
     res.status(200).json(product);
   } catch (error) {
     res.json({ error: error.message });
@@ -93,28 +93,16 @@ const updateProduct  = async (req, res) => {
 }
 //Searcg
 const searchProduct  = async (req, res) => {
-
-    const query = {};
-
-
-
-    try{
-
-        if (req.query.search) {
-            query.$or = [
-              //{author: new RegExp(req.query.search, 'i')},
-              {title: new RegExp(req.query.search, 'i')},
-              //{genre: new RegExp(req.query.search, 'i')}
-            ];
-          }
-          Item.find(query).then(items => res.json(items));
-
-
-    }catch(error){
-        res.json({error: error.message})
-    }
+  const searchTerm = req.body.searchTerm;
+  const products = await Product.find({
+    $or: [
+      { title: { $regex: searchTerm, $options: 'i' } },
+      { author: { $regex: searchTerm, $options: 'i' } },
+      { category: { $regex: searchTerm, $options: 'i' } },
+    ],
+  });
+  res.json(products);
 }
-
 
 
 module.exports = {createProduct,

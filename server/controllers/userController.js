@@ -9,11 +9,11 @@ const createToken = (_id) =>{
 
 
 
-//Create new workout/ user
+
 const   loginUser =  async (req, res) => {
     const {email, password} = req.body
     try{
-        const user = await UserTwo.login(email, password)
+        const user = await UserTwo.login(email, password, { userId: user._id });
         const token = createToken(user._id)
         res.status(200).json({email, token})
     }catch(error){
