@@ -11,7 +11,7 @@ import WorkoutList from '../components/WorkoutList'
 const Home = () => {
   const dispatch = useDispatch();
   const count = useSelector((state) => state.counter);
-
+  const userId = useSelector((state) => state.auth.userId);
 
 
 
@@ -23,6 +23,7 @@ const Home = () => {
       <button onClick={() => dispatch(increment())}>+</button>
     </div>
      {/*New */}
+     {userId && <div>User ID: {userId}</div>}
      <WorkoutForm />
      <div>
      <WorkoutList />

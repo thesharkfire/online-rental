@@ -1,37 +1,50 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
 
-const productSchema = new Schema({
-   title: {
-    type:String,
-    //required: true,
+const productSchema = new Schema(
+  {
+    title: {
+      type: String,
+      //required: true,
     },
-    author:{
-        type: [String],
-        //required: true
+    author: {
+      type: [String],
+      //required: true
     },
     desc: {
-        type: String,
-        //required: true
+      type: String,
+      //required: true
     },
 
     price: {
-        type: Number,
-        //required: true
+      type: Number,
+      //required: true
     },
 
-    category: [{
+    category: [
+      {
         type: String,
         //required: true
-    }],
+      },
+    ],
 
     image: {
-        type: String,
-        //required: true
-    }
+      type: String,
+      //required: true
+    },
 
- }, {timestamps: true})
+    // Add a new field to store the product reviews
+    reviews: [
+      {
+        text: String,
+        user: {
+          _id: String,
+        },
+      },
+    ],
+  },
+  { timestamps: true }
+);
 
-
-module.exports = mongoose.model('ProductOne', productSchema)
+module.exports = mongoose.model('ProductOne', productSchema);

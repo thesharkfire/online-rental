@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './Signup.css';
 import { login } from '../redux/authSlice';
-import { useNavigate } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -15,7 +14,6 @@ const Login = () => {
 	const [isLoading, setIsLoading] = useState(null);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate()
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -43,11 +41,9 @@ const Login = () => {
 
     if(response.ok){
 			  dispatch(login(json));
-			  localStorage.setItem('auth', JSON.stringify({ ...json, userId: json.userId }));//just (json), change back
+			  localStorage.setItem('auth', JSON.stringify(...json, {userId: json.userId}));//just (json), change back
 			  setIsLoading(false)
-      
-        console.log(`User ID: ${json.userId}`);
-        navigate('/newhome');
+
 
       }
 
@@ -56,7 +52,6 @@ const Login = () => {
 
     // Handle form submission here
     console.log(email, password)
-    
 
 
 

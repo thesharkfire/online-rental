@@ -52,9 +52,9 @@ function ProductPage() {// {product}  prop
           <img src={`/api/images/${product._id}`} alt={product.title} />
           {/*
           <p>{product.createdAt} </p>
-          <button onClick={() => onAddToCart(product)}>Add to Cart</button>
+          <button onClick={() => onAddToCart(product)}>Add to Cart</button>*/}
           <ReviewSection product = {product} />
-          */}
+          
     </div>
   )
 }

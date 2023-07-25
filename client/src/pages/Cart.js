@@ -20,7 +20,7 @@ const Cart = () => {
   };
 
   // Use the useSelector hook to access the user ID from the authSlice
-  const userId = useSelector((state) => state.auth.user.userId);
+  const userId = useSelector((state) => state.auth.userId);
 
   // Calculate the subtotal of the cart
   const subtotal = cart.reduce((total, product) => total + product.price, 0);
@@ -79,7 +79,7 @@ const Cart = () => {
                   }
                 }],
                 application_context: {
-                  shipping_preference: 'SET_PROVIDED_ADDRESS'
+                  shipping_preference: 'GET_FROM_FILE'
                 }
               });
             }}

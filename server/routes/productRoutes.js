@@ -5,7 +5,7 @@ const {
     createProduct,
     getProducts,
     getProduct,
-    deleteProduct,updateProduct, searchProduct
+    deleteProduct,updateProduct, searchProduct,submitProductReview,getProductReviews
 } = require('../controllers/productController')
 
 const requireAuth = require('../middleware/requireAuth')
@@ -47,6 +47,8 @@ router.patch('/:id',updateProduct);
 
 router.post('/search', searchProduct);
 
+router.post('/:productId/reviews', submitProductReview);
 
+router.get('/:productId/reviews', getProductReviews); 
 
 module.exports = router

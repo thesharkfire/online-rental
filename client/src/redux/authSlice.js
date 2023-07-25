@@ -12,13 +12,16 @@ const authSlice = createSlice({
     login: (state, action) => {
       state.isAuthenticated = true;
       state.user = action.payload;
+      state.userId = action.payload.userId; // Store the user's ID in the Redux store
     },
     logout: (state) => {
       state.isAuthenticated = false;
       state.user = null;
+      state.userId = null; // Reset the userId state when the user logs out
     },
   },
 });
+
 
 export const { login, logout } = authSlice.actions;
 

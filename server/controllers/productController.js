@@ -104,9 +104,46 @@ const searchProduct  = async (req, res) => {
   res.json(products);
 }
 
+const submitProductReview = async (req, res) => {
+    const productId = req.params.productId;
+    try {
+      const product = await Product.findById(productId);
+      if (!product) {
+        res.status(404).json({ error: 'Product not found' });
+        return;
+      }
+      const reviewText = req.body.review;
+      const userId = req.body.userId; // Get the userId from the request body
+      const newReview = {
+        text: reviewText,
+        user: { _id: userId }, // Use the userId from the request body
+      };
+      product.reviews.push(newReview);
+      await product.save();
+      res.json({ review: newReview });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+  const getProductReviews = async (req, res) => {
+    const productId = req.params.productId;
+    try {
+      const product = await Product.findById(productId);
+      if (!product) {
+        res.status(404).json({ error: 'Product not found' });
+        return;
+      }
+      res.json({ reviews: product.reviews });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+  
+
 
 module.exports = {createProduct,
      getProducts, getProduct, deleteProduct, updateProduct,
-     searchProduct
+     searchProduct,submitProductReview,getProductReviews
 
     }
