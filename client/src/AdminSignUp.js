@@ -9,7 +9,7 @@ function AdminSignUp() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Send a POST request to the backend to create a new admin account
-    const response = await fetch('/api/admin/signup', {
+    const response = await fetch('http://localhost:5000/api/user/signup-admin/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

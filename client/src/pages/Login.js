@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Login = () => {
-  const [name, setName] = useState('');
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -38,14 +38,14 @@ const Login = () => {
     if(!response.ok){
       setIsLoading(false)
       setError(json.error)
-
+      
     }
 
     if(response.ok){
 			  dispatch(login(json));
 			  localStorage.setItem('auth', JSON.stringify({ ...json, userId: json.userId }));//just (json), change back
 			  setIsLoading(false)
-      
+
         console.log(`User ID: ${json.userId}`);
         navigate('/newhome');
 
@@ -56,7 +56,7 @@ const Login = () => {
 
     // Handle form submission here
     console.log(email, password)
-    
+
 
 
 
@@ -71,15 +71,7 @@ const Login = () => {
     <form onSubmit={handleFormSubmit}>
         <h3>Log In</h3>
 
-      <div>
-        <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-        />
-      </div>
+
       <div>
         <label htmlFor="email">Email:</label>
         <input

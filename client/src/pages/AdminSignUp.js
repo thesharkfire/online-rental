@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import './Signup.css';
 import { login } from '../redux/authSlice';
-import { Link } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-const Signup = () => {
+const AdminSignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [accessCode, setAccessCode] = useState('');
 
   //New
   const [error, setError] = useState(null);
@@ -24,9 +24,9 @@ const Signup = () => {
 	  setError(null)
 
 
-    const response = await fetch('http://localhost:5000/api/user/signup/',{
+    const response = await fetch('http://localhost:5000/api/user/signup/admin/',{
       method: 'POST',
-      body: JSON.stringify({name, email, password}),
+      body: JSON.stringify({name, email, password, accessCode}),
       headers: {
         'Content-Type':'application/json'
       }
@@ -69,7 +69,7 @@ const Signup = () => {
    */
 
   return (
-      <>
+
     <form onSubmit={handleFormSubmit}>
         <h3>Sign Up</h3>
 
@@ -100,13 +100,19 @@ const Signup = () => {
           onChange={(event) => setPassword(event.target.value)}
         />
       </div>
+
+        <div>
+      <label>  Access Code:</label>
+        <input
+          type="password"
+          value={accessCode}
+          onChange={(event) => setAccessCode(event.target.value)}
+        />
+        </div>
+
       <button disabled ={isLoading} type="submit">Sign Up</button>
       {error && <div> {error}</div>}
     </form>
-    <Link to="/signup/admin">
-        <button>Sign Up as Admin</button>
-      </Link>
-      </>
 
 
 
@@ -114,4 +120,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default AdminSignUp;

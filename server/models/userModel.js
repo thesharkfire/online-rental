@@ -8,16 +8,35 @@ const orderSchema = require('./orderModel').schema
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
+	name: {
+    type: String,
+    //required: true
+  },
+
 	email:{
 		type:String,
 		required: true,
 		unique: true
 	},
+
 	password: {
 		type: String,
 		required: true
 	},
-	orders: [orderSchema]
+
+	orders: [orderSchema],
+
+	role: {
+    type: String,
+    //required: true
+  },
+
+  suspended: {
+    type: Boolean,
+    default: false
+  }
+
+
 })
 
 
@@ -62,6 +81,11 @@ const user = await this.findOne({ email})
 if(!user){
    throw Error('Incorrect email')
 }
+
+// Check if the user's account is suspended
+if(user.suspended) {
+      throw Error('Your account has been suspended');
+    }
 
 const match = await bcrypt.compare(password, user.password)
 

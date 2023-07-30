@@ -7,7 +7,10 @@ const orderSchema = new mongoose.Schema({
   products: [productSchema],
   subtotal: Number,
   date: Date,
-  address: String
+  address: String,
+  startDate: Date,
+  endDate: Date,
+  returned: Boolean
 });
 
 // Create an order model

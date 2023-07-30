@@ -37,6 +37,7 @@ const productSchema = new Schema(
     // Add a new field to store the product reviews
     reviews: [
       {
+        title: String,
         text: String,
         user: {
           _id: String,
