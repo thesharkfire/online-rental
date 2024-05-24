@@ -9,7 +9,8 @@ router.post('/signup', async (req, res) => {
     // ...
 
     // Check that the access code is correct
-    if (req.body.accessCode !== 'SECRET_ACCESS_CODE') {
+    //if (req.body.accessCode !== 'SECRET_ACCESS_CODE') {
+    if (req.body.accessCode !== 'abcd1234') {
       return res.status(401).json({ message: 'Invalid access code' });
     }
 

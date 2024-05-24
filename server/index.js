@@ -43,13 +43,13 @@ app.use('/api/orders', orderRoutes)
 app.use('/api/products', productRoutes)
 
 
+const uri = "mongodb+srv://itachi:abcd1234@mernapp.cdmbs.mongodb.net/?retryWrites=true&w=majority&appName=MERNapp";
 
 
 
-
-
+//mongoose.connect(process.env.CONNECTION_URL)
 /*Connection to Mongodb database*/
-mongoose.connect(process.env.CONNECTION_URL)
+mongoose.connect(uri)
 .then(()=>{
     app.listen(process.env.PORT, () =>{console.log('Listening on port', process.env.PORT)})
 })
