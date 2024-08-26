@@ -2,6 +2,8 @@ const express = require('express')
 
 const{loginUser, signupUser, signupAdmin} = require('../controllers/userController')
 
+const UserTwo = require('../models/userModel');
+
 
 const router = express.Router()
 
@@ -34,6 +36,33 @@ router.get('/overdue', async (req, res) => {
   res.json(usersWithOverdueOrders);
 });
 
+
+// A GET route for /users that returns a list of all users
+router.get('/users', async (req, res) => {
+  const allUsers = await UserTwo.find(); // Assuming you're using Mongoose
+  res.json(allUsers);
+});
+
+
+// Delete User Route
+router.delete('/:id',  async (req, res) => {
+  
+    // Find the user by ID and remove them
+    await UserTwo.findOneAndRemove({ _id: req.params.id });
+   res.json({ message: 'User account deleted' });
+  
+});
+
+/*
+// Middleware to check if the user is authenticated
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/'); // Redirect to the homepage if not authenticated
+}
+
+*/
 
 
 module.exports = router

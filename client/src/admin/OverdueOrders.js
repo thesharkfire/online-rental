@@ -10,11 +10,13 @@ const OverdueOrders = () => {
   }, [userId]);
 
   const fetchOverdueOrders = async () => {
-    const res = await fetch(`http://localhost:5000/api/orders/overdue/${userId}`);
+    const res = await fetch(`http://localhost:5000/api/orders/overdue/all`);
     const data = await res.json();
-    setOverdueOrders(data);
-  }
+       
 
+    setOverdueOrders(data.reverse());
+  }
+ 
   const handleMarkAsReturned = async (orderId) => {
     await fetch(`http://localhost:5000/api/orders/${orderId}/returned`, {
       method: 'PUT'
@@ -24,25 +26,29 @@ const OverdueOrders = () => {
     fetchOverdueOrders();
   }
 
+  if (!Array.isArray(overdueOrders)) {
+    return <p>No overdue orders.</p>;
+  }
+
   return (
-  <>
-    <h2>Overdue Orders</h2>
-    <ul>
+  <div >
+    <h2 style={{ fontSize: '1.8rem', marginBottom: '1rem' }}>Overdue Orders</h2>
+    <ul style={{ listStyle: 'none', padding: 0 }}>
       {overdueOrders.map(order => (
-        <li key={order._id}>
-          Order ID: {order._id} - User: {order.user.name} - Start Date: {new Date(order.startDate).toLocaleDateString()} - End Date: {new Date(order.endDate).toLocaleDateString()}
+        <li key={order._id}   style={{ marginBottom: '1rem' }}>
+          Order ID: {order._id} - User: {order.email} - Start Date: {new Date(order.startDate).toLocaleDateString()} - End Date: {new Date(order.endDate).toLocaleDateString()}
           <button onClick={() => handleMarkAsReturned(order._id)}>Mark as Returned</button>
-          <ul>
+          <ul  style={{ listStyle: 'none'}}>
             {order.products.map(product => (
               <li key={product._id}>
-                Product: {product.name} - Price: {product.price}
+                Product: {product.title} - Price: {product.price}
               </li>
             ))}
           </ul>
         </li>
       ))}
     </ul>
-  </>
+  </div>
 );
 
   

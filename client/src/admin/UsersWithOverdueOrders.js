@@ -8,36 +8,49 @@ const UsersWithOverdueOrders = () => {
   }, []);
 
   const fetchUsersWithOverdueOrders = async () => {
-    const res = await fetch(`http://localhost:5000/api/users/overdue`);
-    const data = await res.json();
-    setUsers(data);
+   try {
+      const res = await fetch(`http://localhost:5000/api/user/overdue`);
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await res.json();
+      setUsers(data);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      // Handle the error (e.g., show an error message to the user)
+    }
   }
 
   const handleSuspendUser = async (userId) => {
-    await fetch(`http://localhost:5000/api/users/${userId}/suspend`, {
+    await fetch(`http://localhost:5000/api/user/${userId}/suspend`, {
+      method: 'PUT'
+    });
+
+    // Refetch the users with overdue orders
+    fetchUsersWithOverdueOrders();
+  } 
+
+  const handleUnsuspendUser = async (userId) => {
+    await fetch(`http://localhost:5000/api/user/${userId}/unsuspend`, {
       method: 'PUT'
     });
 
     // Refetch the users with overdue orders
     fetchUsersWithOverdueOrders();
   }
-
-  const handleUnsuspendUser = async (userId) => {
-    await fetch(`http://localhost:5000/api/users/${userId}/unsuspend`, {
-      method: 'PUT'
-    });
-
-    // Refetch the users with overdue orders
-    fetchUsersWithOverdueOrders();
+  if (!Array.isArray(users)) {
+    return <p>No users with overdue orders available.</p>;
   }
 
   return (
     <>
       <h2>Users with Overdue Orders</h2>
-      <ul>
-        {users.map(user => (
+      <ul style={{ listStyle: 'none'}}>
+           { 
+          users.map(user => (
           <li key={user._id}>
-            User ID: {user._id} - Name: {user.name}
+            {console.log(user._id)}
+              {user.email}
             {!user.suspended && (
               <button onClick={() => handleSuspendUser(user._id)}>Suspend</button>
             )}

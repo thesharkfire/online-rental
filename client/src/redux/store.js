@@ -3,7 +3,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import counterReducer from './counter';
-import WorkoutsReducer from './WorkoutsSlice';
+//import WorkoutsReducer from './WorkoutsSlice';
 import authReducer from './authSlice';
 import productReducer from './productSlice'
 import cartReducer from './cartSlice'
@@ -16,7 +16,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   counter: counterReducer,
-  workouts: WorkoutsReducer,
+   
   auth: authReducer,
   products: productReducer,
   cart:cartReducer,

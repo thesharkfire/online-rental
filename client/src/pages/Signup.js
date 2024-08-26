@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Signup.css';
 import { login } from '../redux/authSlice';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -15,6 +16,8 @@ const Signup = () => {
 	const [isLoading, setIsLoading] = useState(null);
 
   const dispatch = useDispatch();
+   const navigate = useNavigate()
+
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -26,7 +29,7 @@ const Signup = () => {
 
     const response = await fetch('http://localhost:5000/api/user/signup/',{
       method: 'POST',
-      body: JSON.stringify({name, email, password}),
+      body: JSON.stringify({email, password}),
       headers: {
         'Content-Type':'application/json'
       }
@@ -41,9 +44,27 @@ const Signup = () => {
     }
 
     if(response.ok){
-			  dispatch(login(json));
-			  localStorage.setItem('auth', JSON.stringify(json));
-			  setIsLoading(false)
+         if(json.error){
+          setError(json.error)
+          console.log('Response from server:', json);       
+          setIsLoading(false)
+         
+        }
+        
+        if(!json.error){
+          dispatch(login(json));
+          console.log('Response from server:', json);
+          localStorage.setItem('auth', JSON.stringify(json));
+          setIsLoading(false)
+          navigate('/');
+           setName('');
+          setEmail('');
+          setPassword('');
+        }
+         
+         
+
+        
 
 
       }

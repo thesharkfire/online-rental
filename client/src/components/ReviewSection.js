@@ -6,7 +6,8 @@ function ReviewSection({ product }) {
   const [reviewTitle, setReviewTitle] = useState('');
   const [reviews, setReviews] = useState([]);
   const userId = useSelector((state) => state.auth.userId);
-
+  const userEmail = useSelector((state) => state.auth.user.email);
+  console.log(userEmail + 'hello') 
   useEffect(() => {
     // Fetch the reviews for the product from the server
     fetch(`http://localhost:5000/api/products/${product._id}/reviews`)
@@ -24,7 +25,7 @@ function ReviewSection({ product }) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ title: reviewTitle, review: reviewText, userId }),
+      body: JSON.stringify({ title: reviewTitle, review: reviewText, userId, userEmail}),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -44,7 +45,7 @@ function ReviewSection({ product }) {
         {reviews.map((review) => (
           <li key={review._id}>
             <h4>{review.title}</h4>
-            {review.text} - by user {review.user._id}
+            {review.text} - by user  {review.user.email}
           </li>
         ))}
       </ul>

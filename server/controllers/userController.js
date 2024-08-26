@@ -25,8 +25,9 @@ const   loginUser =  async (req, res) => {
 
 const   signupUser = async (req, res) => {
     const {name, email, password} = req.body
+    const role = 'user'
     try{
-        const user = await UserTwo.signup(name, email, password,  { role: 'user' })
+        const user = await UserTwo.signup(email, password, role)
         const token = createToken(user._id)
         res.status(200).json({email, token, userId: user._id, role: user.role})
     }catch(error){
@@ -37,14 +38,15 @@ const   signupUser = async (req, res) => {
 
 
 const   signupAdmin = async (req, res) => {
-    const {name, email, password} = req.body
+    const {name, email, password, accessCode} = req.body
+    const role = 'admin'
     try{
 
-			if (req.body.accessCode !== process.env.SECRET_ACCESS_CODE) {
+			if (req.body.accessCode !== 'abcd1234') {//'abcd1234'  process.env.SECRET_ACCESS_CODE
 				return res.status(401).json({ message: 'Invalid access code' });
 			}
 
-        const user = await UserTwo.signup(name, email, password,  { role: 'admin' })
+        const user = await UserTwo.signup(email, password, role)
         const token = createToken(user._id)
         res.status(200).json({email, token, userId: user._id, role: user.role})
     }catch(error){

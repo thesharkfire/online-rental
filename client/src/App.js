@@ -8,8 +8,9 @@ import AdminSignUp from './pages/AdminSignUp';
 import Login from './pages/Login';
 import Navbar from './components/Navbar';
 import SearchBar from './pages/SearchBar';
-import NewHome from './pages/NewHome';
+//import NewHome from './pages/NewHome';
 import ProductPage from './components/ProductPage';
+import Orders from './pages/Orders';
 import Cart from './pages/Cart';
 import Results from './pages/Results';
 import AdminDashboard from './admin/AdminDashboard';
@@ -24,6 +25,7 @@ function App() {
 
 
   useEffect(() => {
+    //<Route path = '/newhome' element={<NewHome/>}> </Route>
     //Turn this into check auth component
     // Load the authentication details from local storage when the component mounts
     const auth = JSON.parse(localStorage.getItem('auth'));
@@ -52,7 +54,8 @@ function App() {
           <Route path = '/login' element = {<Login />} />
           <Route path = '/searchbar' element = {<SearchBar />} />
           <Route path = '/products/:productId' element ={<ProductPage/>}> </Route>
-          <Route path = '/newhome' element={<NewHome/>}> </Route>
+          
+          <Route path = '/orders' element={<Orders/>}> </Route>
           <Route path = '/cart' element={<Cart/>}> </Route>
           <Route path = '/results' element={<Results />}> </Route>
           <Route path="/admin" element={<AdminDashboard />}></Route>

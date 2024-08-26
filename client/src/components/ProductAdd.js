@@ -93,9 +93,9 @@ const ProductAdd = () => {
             setNewAuthor('');
           }
         }
-
+   
   return (
-    <form onSubmit={handleSubmit} enctype= "multipart/form-data">
+    <form onSubmit={handleSubmit} encType= "multipart/form-data">
 
       <h3>Add a New product</h3>
 

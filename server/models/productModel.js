@@ -41,6 +41,7 @@ const productSchema = new Schema(
         text: String,
         user: {
           _id: String,
+          email: String
         },
       },
     ],

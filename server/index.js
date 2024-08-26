@@ -1,7 +1,7 @@
 const  express = require('express');
 
 /* Routes */
-const workoutRoutes = require('./routes/Workouts.js')
+//const workoutRoutes = require('./routes/Workouts.js')
 const userRoutes = require('./routes/userRoutes.js')
 const productRoutes = require('./routes/productRoutes.js')
 const orderRoutes  = require('./routes/orderRoutes.js')
@@ -37,7 +37,7 @@ app.get('/api/images/:id', async (req, res) => {
 
 
 /*Route setup */
-app.use('/api/workouts', workoutRoutes)
+//app.use('/api/workouts', workoutRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/orders', orderRoutes)
 app.use('/api/products', productRoutes)

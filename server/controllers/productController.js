@@ -115,10 +115,11 @@ const submitProductReview = async (req, res) => {
     const reviewText = req.body.review;
     const reviewTitle = req.body.title;
     const userId = req.body.userId; // Get the userId from the request body
+    const userEmail = req.body.userEmail; 
     const newReview = {
       title: reviewTitle,
       text: reviewText,
-      user: { _id: userId }, // Use the userId from the request body
+      user: { _id: userId, email: userEmail }, // Use the userId from the request body
     };
     product.reviews.push(newReview);
     await product.save();

@@ -42,12 +42,25 @@ const Login = () => {
     }
 
     if(response.ok){
-			  dispatch(login(json));
-			  localStorage.setItem('auth', JSON.stringify({ ...json, userId: json.userId }));//just (json), change back
-			  setIsLoading(false)
 
-        console.log(`User ID: ${json.userId}`);
-        navigate('/newhome');
+        if(json.error){
+          setError(json.error)
+          console.log('Response from server:', json);       
+          setIsLoading(false)
+         
+        }
+        
+        if(!json.error){
+          dispatch(login(json));
+          console.log('Response from server:', json);
+          localStorage.setItem('auth', JSON.stringify(json));
+          console.log(`User ID: ${json.userId}`);
+          console.log(`User role: ${json.role}`);
+          setIsLoading(false)
+          navigate('/');
+          setEmail('');
+          setPassword('');
+        }
 
       }
 

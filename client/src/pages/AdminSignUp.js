@@ -3,6 +3,7 @@ import './Signup.css';
 import { login } from '../redux/authSlice';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const AdminSignUp = () => {
   const [name, setName] = useState('');
@@ -15,7 +16,7 @@ const AdminSignUp = () => {
 	const [isLoading, setIsLoading] = useState(null);
 
   const dispatch = useDispatch();
-
+const navigate = useNavigate()
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -41,11 +42,31 @@ const AdminSignUp = () => {
     }
 
     if(response.ok){
-			  dispatch(login(json));
-			  localStorage.setItem('auth', JSON.stringify(json));
-			  setIsLoading(false)
+			  
+			
+			  
+
+        
+        if(json.error){
+          setError(json.error)
+          console.log('Response from server:', json);       
+          setIsLoading(false)
+         
+        }
 
 
+
+          if(!json.error){
+          dispatch(login(json));
+          console.log('Response from server:', json);
+          localStorage.setItem('auth', JSON.stringify(json));
+          console.log(`User ID: ${json.userId}`);
+          console.log(`User role: ${json.role}`);
+          setIsLoading(false)
+          navigate('/');
+          setEmail('');
+          setPassword('');
+        }
       }
 
 

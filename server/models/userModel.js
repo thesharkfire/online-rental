@@ -41,7 +41,7 @@ const userSchema = new Schema({
 
 
 
-userSchema.statics.signup = async function (email, password){
+userSchema.statics.signup = async function (email, password, role){
 
     //Validation
     if(!email || !password){
@@ -58,13 +58,13 @@ userSchema.statics.signup = async function (email, password){
 	const exists = await this.findOne({ email})
 
 	if(exists){
-		throw Error('Email arlready in use')
+		throw Error('Email already in use')
 	}
 
 	const salt = await bcrypt.genSalt(10)
 	const hash = await bcrypt.hash(password, salt)
 
-	const user = await this.create({email, password:hash})
+	const user = await this.create({email, password:hash, role})
 
 	return user
 }

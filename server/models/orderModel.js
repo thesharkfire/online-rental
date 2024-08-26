@@ -5,6 +5,7 @@ const productSchema = require('./productModel').schema;
 const orderSchema = new mongoose.Schema({
   userId: String,
   products: [productSchema],
+  email:String,
   subtotal: Number,
   date: Date,
   address: String,

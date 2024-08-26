@@ -12,7 +12,12 @@ const ProductList = () => {
     //New
    // co nst [products, setProducts] = useState(null);
   const products = useSelector((state) => state.products);
-
+  
+  const productGridStyle = {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(4, 1fr)', // Four columns
+    gap: '1rem', // Gap between products
+  };
 
   useEffect(() => {
 
@@ -37,7 +42,7 @@ const ProductList = () => {
   return (
   <>
 
-  <div className = "products">
+  <div className = "products" style={productGridStyle}>
       {products && products.map((product) => (
           <Product key = {product._id} product ={product} />
 

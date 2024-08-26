@@ -14,3 +14,28 @@ onSuccess = {transactionSuccess}
 transactionError={handleError}
 transactionCanceled= {transactionCanceled}
 />
+
+
+npm start
+
+cd Documents/Academics/Assignments/RoughWork/Project/online-rental/client
+cd Documents/Academics/Assignments/RoughWork/Project/online-rental/server
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+Original
+const paypalScriptTag = `
+    <script src="https://www.paypal.com/sdk/js?client-id=AXNPSqgCNrtMVEdwhigyao_WPLGiQnKoA76024YaUa-VifCsNefmcquda1GPvUARZtZ511Lrs3VgSBnf&currency=USD"></script>
+  `;
